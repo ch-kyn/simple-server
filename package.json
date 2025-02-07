@@ -5,9 +5,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "debug": "NODE_ENV=development PORT=8082 node --watch server.js",
-    "start": "NODE_ENV=production PORT=8082 node server.js",
-    "test": "NODE_ENV=production PORT=8082 node test.js"
+    "debug": "NODE_ENV=development PORT=8083 node --watch server.js",
+    "start": "NODE_ENV=production PORT=8083 node server.js",
+    "test": "NODE_ENV=production PORT=8083 node test.js"
   },
   "keywords": [
     "expressjs",
