@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+		<link rel="stylesheet" href="/static/css/home.css">
+  </head>
+  <body class="flex-container">
+    <h1>Welcome, <%= user %>, to your homepage!</h1>
+		<p>It's been <b><%= lastSeen %></b> since your last visit</p>
+		<p>Here is a quote: <i><%= quote %></i></p>
+		<p>Here is a pic of a cat:</p>
+		<img class="cat-img" src="/static/images/cat<%= Math.ceil(Math.random() * 3) %>.png"/>
+  </body>
+</html>

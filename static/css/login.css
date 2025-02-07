@@ -1,0 +1,7 @@
+.login-form{
+	align-items: baseline;
+}
+
+.login-form > * {
+	margin: 1vh 1vw;
+}

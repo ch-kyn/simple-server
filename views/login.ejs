@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+		<link rel="stylesheet" href="/static/css/login.css">
+  </head>
+  <body class="flex-container">
+			<form class="flex-container login-form" action="/login" method="POST">
+				<label>Enter your username: 
+					<input name="user" type="text" maxlength="64" required placeholder="type your username here..."/>
+				</label>
+				<label>
+					I am a new user, register me.
+					<input name="newUser" type="checkbox" value="new"/>
+				</label>
+				<input type="submit" value="Send It"/>
+			</form>
+  </body>
+</html>
