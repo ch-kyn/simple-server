@@ -140,4 +140,11 @@ app.use((err, req, res, next)=>{
 	next(err);
 });
 
-app.listen(8081, ()=>console.log("server is running"));
+const appRunningPromise = new Promise((resolve)=>{
+	const runningInstance = app.listen(process.env.PORT, ()=>{
+		console.log("server is running");
+		resolve(runningInstance);
+	});
+});
+
+export default appRunningPromise;
