@@ -140,11 +140,16 @@ app.use((err, req, res, next)=>{
 	next(err);
 });
 
-const appRunningPromise = new Promise((resolve)=>{
-	const runningInstance = app.listen(process.env.PORT, ()=>{
-		console.log("server is running");
+const appRunningPromise = new Promise((resolve, reject)=>{
+	const runningInstance = app.listen(process.env.PORT, (err)=>{
+		if(err){
+			console.error(err);
+			return reject(err);
+		}
+		// console.log("server is running, port: ", process.env.PORT);
+		console.log(`Server is running on http://localhost:${runningInstance.address().port}`);
 		resolve(runningInstance);
-	});
+	}).on("error", reject);
 });
 
 export default appRunningPromise;
