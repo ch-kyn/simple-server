@@ -145,7 +145,6 @@ const appRunningPromise = new Promise((resolve, reject)=>{
 			console.error(err);
 			return reject(err);
 		}
-		// console.log("server is running, port: ", process.env.PORT);
 		console.log(`Server is running on http://localhost:${runningInstance.address().port}`);
 		resolve(runningInstance);
 	}).on("error", reject);
