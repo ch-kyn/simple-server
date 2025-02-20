@@ -134,6 +134,7 @@ app.post("/login", async (req, res)=>{
 
 app.use((err, req, res, next)=>{
 	if(process.env.NODE_ENV === "production"){
+		console.error(err);
 		return res.status(500).send("some error happened");
 	}
 	next(err);
