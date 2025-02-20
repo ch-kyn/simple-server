@@ -85,7 +85,7 @@ app.get(["/admin/logs", "/admin/logs/:lastNLines"], async (req, res)=>{
 	if(Number.isNaN(req.params.lastNLines)){
 		errMsg	= "The number of requested lines is not a number \n\n";
 	}
-	const str2send = allLogsAsLines.slice(allLogsAsLines.length - req.params.lastNLines, allLogsAsLines.length).join("\n");
+	const str2send = allLogsAsLines.slice(Math.max(allLogsAsLines.length - req.params.lastNLines, 0), allLogsAsLines.length).join("\n");
 	res.status(200).type("text/plain").send(errMsg + str2send);
 });
 
