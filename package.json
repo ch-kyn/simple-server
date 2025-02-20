@@ -7,7 +7,7 @@
   "scripts": {
     "debug": "NODE_ENV=development PORT=8083 node --env-file=env/.env --watch server.js",
     "start": "NODE_ENV=production PORT=8083 node --env-file=/home/miniukovich/env/.env server.js",
-    "test": "NODE_ENV=production PORT=8083 node test.js"
+    "test": "NODE_ENV=production PORT=8084 node test.js"
   },
   "keywords": [
     "expressjs",
