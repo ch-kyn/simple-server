@@ -6,7 +6,8 @@ import path from "path";
 import bodyParser from "body-parser";
 
 const app = express();
-const quoteServerIp = "10.24.83.87"; // make it ENV
+const quoteServerIp = process.env.PHRASE_SERVER_IP;
+const quoteServerPort = process.env.PHRASE_SERVER_PORT;
 
 const adminUserName = "admin.super.secret";
 
@@ -90,7 +91,7 @@ app.get(["/admin/logs", "/admin/logs/:lastNLines"], async (req, res)=>{
 
 app.get("/", async (req, res)=>{
 	try {
-		const quoteResp = await fetch("http://" + quoteServerIp + ":8081", { signal: AbortSignal.timeout(6000) });	
+		const quoteResp = await fetch("http://" + quoteServerIp + ":" + quoteServerPort, { signal: AbortSignal.timeout(6000) });	
 		if(!quoteResp.ok){
 			res.locals.quote = "Couldn't get a quote to show :(";
 		}else{
@@ -113,7 +114,6 @@ app.get("/fall", (req, res)=>{
 });
 
 app.post("/login", async (req, res)=>{
-	console.log(req.body);
 	if(!db.isValidUserName(req.body.user)){
 		return res.status(400).send("Bad user name supplied");
 	}
