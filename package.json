@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "debug": "NODE_ENV=development PORT=8083 node --env-file=env/.env --watch server.js",
-    "start": "echo \"~/env/.env\" && cat \"~/env/.env\" && NODE_ENV=production PORT=8083 node --env-file=~/env/.env server.js",
+    "start": "NODE_ENV=production PORT=8083 node --env-file=/home/miniukovich/env/.env server.js",
     "test": "NODE_ENV=production PORT=8083 node test.js"
   },
   "keywords": [
