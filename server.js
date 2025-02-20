@@ -109,7 +109,6 @@ app.get("/login", (req, res)=>{
 });
 
 app.get("/fall", (req, res)=>{
-	// throw new Error("Deliberately making the app fail");
 	process.exit(1);
 });
 
