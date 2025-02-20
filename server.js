@@ -77,7 +77,7 @@ app.use("/admin", (req, res, next)=>{
 });
 
 app.get(["/admin/logs", "/admin/logs/:lastNLines"], async (req, res)=>{
-	const allLogs = await readFile(path.resolve("logs.txt"), "utf8");
+	const allLogs = await readFile(path.resolve(process.env.LOG_FILE_PATH), "utf8");
 	const allLogsAsLines = allLogs.split("\n");
 	req.params.lastNLines ??= allLogsAsLines.length;
 	req.params.lastNLines = parseInt(req.params.lastNLines, 10);
