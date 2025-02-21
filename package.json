@@ -5,8 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "debug": "NODE_ENV=development PORT=8083 node --env-file=.env --watch server.js",
-    "start": "NODE_ENV=production PORT=8083 node --env-file=.env server.js",
+    "debug": "NODE_ENV=development PORT=8083 node --env-file=/home/nguyen/.env --watch server.js",
+    "start": "NODE_ENV=production PORT=8083 node --env-file=/home/nguyen/.env server.js",
     "test": "NODE_ENV=production PORT=8084 node test.js"
   },
   "keywords": [
