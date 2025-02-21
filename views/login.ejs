@@ -9,12 +9,16 @@
   </head>
   <body class="flex-container">
 			<form class="flex-container login-form" action="/login" method="POST">
-				<label>Enter your username: 
-					<input name="user" type="text" maxlength="64" required placeholder="type your username here..."/>
+				<label>Username: 
+					<input id="user" name="user" type="text" maxlength="64" required placeholder="type your username here..."/>
+				</label>
+				<label>Password: 
+					<input id="pwd" name="pwd" type="password" required placeholder="type your password here..."/>
 				</label>
 				<label>
 					I am a new user, register me.
 					<input name="newUser" type="checkbox" value="new"/>
+					
 				</label>
 				<input type="submit" value="Send It"/>
 			</form>

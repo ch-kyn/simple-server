@@ -8,12 +8,14 @@ var dbRef = null;
 function text2arr(txt) {
 	return txt.split("\n").map((record) => {
 		const values = record.split("\t");
-		return { name: values[0], lastSeen: values[1] };
+		return { name: values[0], password: values[1], lastSeen: values[2] };
 	});
 }
 
 function arr2text(arr) {
-	return arr.map((obj) => `${obj.name}\t${obj.lastSeen}`).join("\n");
+	console.log(dbRef);
+	console.log(arr);
+	return arr.map((obj) => `${obj.name}\t${obj.password}\t${obj.lastSeen}`).join("\n");
 }
 
 function isValidUserName(userName){
@@ -31,11 +33,12 @@ async function findUser(userName) {
 	return dbRef.find((x) => x.name === userName);
 }
 
-async function createUser(userName) {
+async function createUser(userName, pass) {
 	if(!isValidUserName(userName)){
 		throw new Error("Bad user name");
 	}
-	dbRef.push({ name: userName, lastSeen: Date.now() });
+	
+	dbRef.push({ name: userName, password: pass, lastSeen: Date.now() });
 	await writeFile(dbFPath, arr2text(dbRef), {encoding: "utf8"});
 }
 
@@ -45,6 +48,7 @@ async function updateUser(newUserObj) {
 	}
 	const oldUserObj = await findUser(newUserObj.name);
 	oldUserObj.name = newUserObj.name;
+	oldUserObj.password = newUserObj.password;
 	oldUserObj.lastSeen = newUserObj.lastSeen;
 	await writeFile(dbFPath, arr2text(dbRef), {encoding: "utf8"});
 }

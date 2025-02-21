@@ -27,15 +27,15 @@ app.use((req, res, next)=>{
 		.split("; ")
 		.filter(x=>x.startsWith("user="))[0]
 		?.replace("user=", "");
-	if(userName){
+	if (userName) {
 		res.locals.user = userName;
 		next();
-	}else{
+	} else {
 		res.redirect("/login");
 	}
 });
 
-function formatLastSeenTime(lastSeen){
+function formatLastSeenTime(lastSeen) {
 	const timeSinceLastVisit = Date.now() - parseInt(lastSeen);
 	const sMsec = 1000;
 	const mMsec = sMsec * 60;
@@ -46,32 +46,33 @@ function formatLastSeenTime(lastSeen){
 	return `${h}H:${m}M:${s}S`;
 }
 
-app.use(async (req, res, next)=>{
-	if(res.locals.user){
-		if(!db.isValidUserName(res.locals.user)){
+app.use(async (req, res, next) => {
+	if (res.locals.user) {
+		if (!db.isValidUserName(res.locals.user)) {
 			return res.status(400).send("Bad user name supplied");
 		}
 		const aUser = await db.findUser(res.locals.user);
-		if(!aUser){
-			if(req.accepts("json")){
+		if (!aUser){
+			if (req.accepts("json")){
 				res.status(404).send({msg: `User by the name ${res.locals.user} does not exist.`});
-			}else if(req.accepts("html")){
+			} else if (req.accepts("html")){
 				res.redirect("/login");
-			}else{
+			} else {
 				res.status(406).send("Requested resource type is Not acceptable");
 			}
 			return;
 		}
+		aUser.lastSeen = Date.now();
 		res.locals.lastSeen = formatLastSeenTime(aUser.lastSeen);
-		await db.updateUser({name: aUser.name, lastSeen: Date.now()});
+		await db.updateUser(aUser);
 	}
 	next();
 });
 
 app.use("/admin", (req, res, next)=>{
-	if(res.locals.user === adminUserName){
+	if (res.locals.user === adminUserName) {
 		next();
-	}else{
+	} else {
 		res.status(403).send("You can't access admin pages.");
 	}
 });
@@ -113,17 +114,20 @@ app.get("/fall", (req, res)=>{
 });
 
 app.post("/login", async (req, res)=>{
-	if(!db.isValidUserName(req.body.user)){
+	if (!db.isValidUserName(req.body.user)){
 		return res.status(400).send("Bad user name supplied");
 	}
+
 	const aUserObj = await db.findUser(req.body.user);
-	if(req.body.newUser){
-		if(aUserObj){
+
+	if (req.body.newUser) {
+		if (aUserObj) {
 			return res.status(409).send("username already taken");
-		}else{
-			await db.createUser(req.body.user);
+		} else {
+			//console.log(req.body);
+			await db.createUser(req.body.user, req.body.pwd);
 		}
-	}else{
+	} else { 
 		if(!aUserObj){
 			return res.status(404).send("username not found");
 		}
